@@ -1,0 +1,13 @@
+// Typography
+// _____________________________________________________________________________
+
+$Helvetica                   : "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+html {
+	font-size: 62.5%; // Make REMs a bit more understandable
+	font-family: $Helvetica;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, input {
+	-webkit-font-smoothing: antialiased;
+}

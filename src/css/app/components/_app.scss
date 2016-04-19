@@ -1,0 +1,34 @@
+.app {
+	height: 100vh;
+	overflow: hidden;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	
+	// Weird triangle thing
+	&:after {
+		content: "";
+		top: 0;
+		left: -50%;
+		right: -50%;
+		bottom: -50%;
+		position: absolute;
+		z-index: 0;
+		background: $COLOR_LIGHT-BLUE;
+		transition: all 1s 0s cubic-bezier(0.860, 0.000, 0.070, 1.000); //$easing--fast-start;
+		transform: rotate(60deg) translate3d(0%,40%,0);
+		backface-visibility: hidden;
+	}
+	
+	&:not(.is-mounted):after {
+		transform: rotate(45deg) translate3d(0%,100%,0);
+	}
+	
+	> * {
+		// Ensure that the above does not conflict with any z-ordering
+		position: relative;
+		z-index: 1;
+	}
+}
