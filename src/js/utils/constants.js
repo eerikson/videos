@@ -1,6 +1,10 @@
-// API Stuff
-export const VIMEO_API_TOKEN = 'a910e8ff3828051fb139155bc0b74cf9';
-export const VIMEO_EMBED_JSON_ENDPOINT = 'https://vimeo.com/api/oembed.json';
+
+export const VALID_USERS = [
+	{
+		email : 'usingpond@me.com',
+		password : 'password'
+	}
+]
 
 // Keycodes
 export const KEYS = {

@@ -5,6 +5,11 @@
 	// background-color: white;
 	font-size: 1.4rem;
 	
+	> * {
+		position: relative;
+		z-index: 1;
+	}
+	
 	input {
 		&[type="password"],
 		&[type="email"] {
@@ -20,11 +25,14 @@
 		}
 	}
 	
-	input {
-		transition: all 0.15s linear;
+	input, button {
 		&:focus {
 			outline: none;
 		}
+	}
+	
+	input {
+		transition: all 0.15s linear;
 		&:not(:placeholder-shown){
 			&:invalid {
 				background-color: $COLOR_RED;
@@ -40,5 +48,103 @@
 	
 	input[type="email"] {
 		margin-bottom: 5px;
+	}
+	
+	button[type="submit"] {
+		appearance: none;
+		background-color: $COLOR_LIGHT-BLUE;
+		color: white;
+		font-weight: 500;
+		border: none;
+		box-sizing: border-box;
+		margin: 5px 0 0 auto;
+		float: right;
+		padding: 8px 20px;
+		border-radius: 2px;
+		z-index: -1;
+		position: relative;
+		border: 2px solid transparent;
+		transition: transform 0.5s $easing--fast-start, opacity 0.2s linear, background-color 0.2s linear, border-color 0.2s linear;
+		
+		&:focus {
+			background-color: white;
+			color: $COLOR_LIGHT-BLUE;
+			border-color: $COLOR_LIGHT-BLUE;
+		}
+	}
+	
+	&.fully-valid {
+		button[type="submit"] {
+			
+		}
+	}
+	
+	&.not-fully-valid {
+		button[type="submit"] {
+			opacity: 0;
+			transform: translate3d(0, -39px, 0); // hide beneath input field
+		}
+	}
+	
+	
+	transition: transform 0.25s ease;
+	overflow: hidden;
+	
+	.user-feedback {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background-color: white;
+		opacity: 0;
+		transition: opacity 0.25s ease;
+		z-index: 0;
+	}
+	
+	.user-inputs {
+		transition: opacity 0.25s ease;
+	}
+	
+	.user-feedback {
+		transform: rotate3d(0, 1, 0, -180deg);
+		padding: 20px;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 2px;
+		border: 2px solid $COLOR_LIGHT-BLUE;
+		
+		.message {
+			font-weight: 500;
+			font-size: 1.9rem;
+		}
+	}
+	
+	// Handle login success
+	&.user-logged-in,
+	&.user-failed-login {
+    transform: rotate3d(0, 1, 0, 180deg);
+		
+		.user-inputs {
+			opacity: 0;
+		}
+		
+		.user-feedback {
+			opacity: 1;
+		}
+	}
+	
+	&.user-logged-in {
+		.message {
+			color: $COLOR_LIGHT-BLUE;
+		}
+	}
+	
+	&.user-failed-login {
+		.message {
+			color: $COLOR_RED;
+		}
 	}
 }

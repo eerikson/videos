@@ -58,7 +58,7 @@ gulp.task('styles', function () {
   return gulp.src(paths.src.styles + '/main.scss')
     .pipe(sass().on('error', sass.logError))
 		.pipe(autoprefixer({
-			browsers: ['last 2 versions'],
+			browsers: ['last 4 versions'],
 			cascade: false
 		}))
     .pipe(gulp.dest(paths.dist.styles));
