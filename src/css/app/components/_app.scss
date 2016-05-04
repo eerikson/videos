@@ -1,13 +1,11 @@
 .app {
-	height: 100vh;
-	overflow: hidden;
+	min-height: 100vh;
 	background-color: white;
 	display: flex;
-	align-items: center;
 	justify-content: center;
 	position: relative;
 	
-	// Weird triangle thing
+	// Weird background thing
 	&:after {
 		content: "";
 		top: 0;
@@ -18,12 +16,31 @@
 		z-index: 0;
 		background: $COLOR_LIGHT-BLUE;
 		transition: all 1s 0s cubic-bezier(0.860, 0.000, 0.070, 1.000); //$easing--fast-start;
-		transform: rotate(60deg) translate3d(0%,40%,0);
+		transform: rotate3d(0,0,1,45deg) translate3d(0%, 95%, 0);
 		backface-visibility: hidden;
 	}
 	
-	&:not(.is-mounted):after {
-		transform: rotate(45deg) translate3d(0%,100%,0);
+	&.not-logged-in {
+		// Center form
+		align-items: center;
+	}
+	
+	&.not-yet-mounted:after {
+		transform: rotate3d(0,0,1,45deg) translate3d(0%,95%, 0)
+	}
+	
+	&.is-mounted:after {
+		transform: rotate3d(0,0,1,60deg) translate3d(0%, 40%, 0);
+	}
+	
+	&.user-logged-in:after {
+		// Saving this for later, it's a flipped version of the initial one when not logged in.
+		// transform: rotate3d(0, 0, 1, 70deg) rotate3d(0, 0, 1, 180deg) translate3d(0%, 50%, 0);
+		transform: none;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
 	}
 	
 	> * {

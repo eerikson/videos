@@ -4,6 +4,10 @@
 @import "./app/__config/typography";
 @import "./app/__config/colors";
 @import "./app/__config/transitions";
+@import "./app/__config/responsive";
+
+// Typekit
+@import "./app/typekit";
 
 
 // Views
@@ -14,3 +18,6 @@
 // Components
 @import "./app/components/app";
 @import "./app/components/login";
+@import "./app/components/movie-list";
+@import "./app/components/movie";
+@import "./app/components/movies-list-item";

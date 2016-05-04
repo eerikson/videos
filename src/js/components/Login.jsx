@@ -1,48 +1,69 @@
 import React from 'react';
 import Component from './Component.jsx';
 
-class Login extends Component {
+class LoginWindow extends Component {
 	
 	/*
-	* Let HTML5 take care of the validation
+	*  Sync email input with state.
+	*  Let HTML5 take care of the validation.
 	*/
 	emailDidChange(event) {
 		let domEmailValid = event.nativeEvent.target.validity.valid;
 		this.setState({ emailValid : domEmailValid, userEmailInput : event.nativeEvent.target.value });	
 	}
 	
+	/*
+	*  Sync password input with state.
+	*  Let HTML5 take care of the validation.
+	*/
 	passwordDidChange(event) {
 		let domPasswordValid = event.nativeEvent.target.validity.valid;
 		this.setState({passwordValid : domPasswordValid, userPasswordInput : event.nativeEvent.target.value });
 	}
 	
+	/*
+	*  Dispatch callback to parent component.
+	*/
+	
 	loginSuccess(details) {
 		this.props.onLoginSuccess(details);
 	}
 	
+	/*
+	*  Intercept default <form /> submission event
+	*/
 	formWillSubmit(event) {
 		event.nativeEvent.preventDefault();	
+		let userFound = false;
 		
-		// Check against valid users.
+		// ______________________________________________________________________ //
+		// EVERYTHING BELOW SHOULD BE THROWN OUT ONCE AN ACTUAL SERVER IS BEING   //
+		// USED. Obviously, client-side user logins are a bad idea.               //
+		// ______________________________________________________________________ //
+		
+		// Check against valid user list.
 		if( this.state.emailValid && this.state.passwordValid ) {
-			// Iterate through valid users, stop when match is found.
+			// Iterate through valid users.
 			this.validUsers.every( user => {
 				
 				if ( 
 					user.email === this.state.userEmailInput &&
 					user.password === this.state.userPasswordInput
 				) {
+					
+					this.setState({loginSuccess : true});
+					userFound = true;
 					this.loginSuccess({ email: user.email });
-					this.setState({loginSuccess : true, loginFailure : false})
+					
+					// Stop when match is found.
 					return false;
 				} else {
-					console.info(user, this.state );
+					// Keep going if no match has been found.
 					return true;
 				}
-			})
-			// If by now the loginSuccess state hasn't been set to 'true',
-			// then we have a login failure.
-			if (!this.state.loginSuccess) {
+			});
+			
+			if (!userFound) {
 				this.setState({loginFailure : true});
 				
 				// After a delay, remove this state and then allow the user to try again.
@@ -50,8 +71,9 @@ class Login extends Component {
 					this.reset()
 				}, 3000 );
 			}
+			
 		} else {
-			console.error("ERROR: Invalid form input.")
+			console.error("ERROR: Invalid form input.");
 		}
 		
 	}
@@ -64,7 +86,7 @@ class Login extends Component {
 			passwordValid : false,
 			loginSuccess : false,
 			loginFailure : false
-		})
+		});
 		
 		this.refs.formEl.reset();
 	}
@@ -74,7 +96,6 @@ class Login extends Component {
 		super(props);
 		this.validUsers = props.users;
 		
-		
 		this.state = { 
 			userEmailInput : null, 
 			userPasswordInput : null,
@@ -83,6 +104,7 @@ class Login extends Component {
 			loginSuccess : false,
 			loginFailure : false
 		};
+		
 	}
 	
 	render() {
@@ -91,7 +113,7 @@ class Login extends Component {
 			<form 
 			ref='formEl'
 			onSubmit={this.formWillSubmit.bind(this)}
-			className={`login component ${this.state.emailValid && this.state.passwordValid ? "fully-valid" : "not-fully-valid"} ${this.state.loginSuccess ? 'user-logged-in' : ''} ${this.state.loginFailure ? 'user-failed-login' : ''} `}>
+			className={`login component ${this.state.emailValid && this.state.passwordValid ? "fully-valid" : "not-fully-valid"} ${this.state.loginSuccess ? "user-logged-in" : ""} ${this.state.loginFailure ? "user-failed-login" : ""}`}>
 				<div className="user-inputs">
 					<input 
 						type="email" 
@@ -119,4 +141,4 @@ class Login extends Component {
 }
 
 
-export default Login;
+export default LoginWindow;

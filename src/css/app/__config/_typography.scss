@@ -2,10 +2,12 @@
 // _____________________________________________________________________________
 
 $Helvetica                   : "Helvetica Neue", Helvetica, Arial, sans-serif;
+$Futura                      : "Futura PT", Helvetica, sans-serif;
+$LeMondeLivre                : "le-monde-livre-std", Georgia, serif;
 
 html {
-	font-size: 62.5%; // Make REMs a bit more understandable
-	font-family: $Helvetica;
+	font-family: $LeMondeLivre; // Default font
+	line-height: 1.2;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, input {

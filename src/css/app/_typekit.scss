@@ -1,0 +1,28 @@
+// This file exists to manage typekit load.
+html.wf-active {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	input {
+		transition: color 0.15s linear;
+	}
+}
+
+html:not(.wf-active) {
+	
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	input {
+		color: transparent;
+	}
+	
+}

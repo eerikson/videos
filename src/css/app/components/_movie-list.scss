@@ -1,0 +1,24 @@
+.movie-list.component {
+	
+	ul.movies {
+		list-style: none;
+		padding: 15px 30px;
+		box-sizing: border-box;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	
+	.movies-list-element {
+		width: 20%;
+		box-sizing: border-box;
+		padding: 10px;
+		
+		@include medium {
+			width: 33%;
+		}
+	}
+	
+
+	
+}
